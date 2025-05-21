@@ -1,0 +1,331 @@
+/* style.css */
+
+/* Base styles from Tailwind's preflight */
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+    background-color: #f3f4f6; /* bg-gray-100 */
+    min-height: 100vh; /* min-h-screen */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    padding: 1rem; /* p-4 */
+    overflow: hidden;
+}
+
+/* Custom styles */
+.input-highlight {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500 focus:border-transparent */
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280; /* text-gray-500 */
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-field {
+    padding-left: 30px; /* Adjusted padding for all input fields to make space for the symbol and a gap */
+    width: 310px; /* FIX: Changed from 410px to 100% for responsiveness */
+    padding-top: 0.5rem; /* py-2 */
+    padding-bottom: 0.5rem; /* py-2 */
+    padding-right: 1rem; /* px-4 (default for x-axis, adjusting for symbol on left) */
+    border: 1px solid #d1d5db; /* border border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    outline: none; /* focus:outline-none */
+}
+
+.input-field:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500 */
+    border-color: transparent; /* focus:border-transparent */
+}
+
+/* --- FIX: Hide number input arrows (spin buttons) --- */
+/* For Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+/* --- END FIX --- */
+
+
+.result-card {
+    transition: all 0.3s ease;
+    background-color: #f9fafb; /* bg-gray-50 */
+    border: 1px solid #e5e7eb; /* border border-gray-200 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 1rem; /* p-4 */
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* General Layout */
+.main-container {
+    width: 100%; /* w-full */
+    max-width: 75rem; /* Adjusted max-width to allow more space for 3 columns. You might need to tweak this value */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    gap: 1.5rem; /* Increased gap for better spacing between panels */
+    align-items: flex-start; /* Align items to the start */
+    justify-content: center; /* Center horizontally */
+}
+
+@media (min-width: 1024px) { /* lg breakpoint */
+    .main-container {
+        flex-direction: row; /* lg:flex-row */
+        align-items: stretch; /* Make sure all items stretch to fill height for visual consistency */
+    }
+}
+
+.panel-item { /* New class for all main content panels */
+    width: 100%; /* Default full width on small screens */
+    background-color: #ffffff; /* Shared background */
+    border-radius: 0.75rem; /* Shared border-radius */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Shared shadow */
+    overflow: hidden; /* Ensure content stays within bounds */
+    display: flex; /* Use flex for internal layout of headers, content, footers */
+    flex-direction: column; /* Stack header, content, footer vertically */
+}
+
+/* Specific width adjustments for large screens (lg breakpoint) */
+@media (min-width: 1024px) {
+    .panel-item {
+        /* Apply flex-grow to allow items to take available space */
+        flex-grow: 1;
+        /* Set base width for flex items. Use flex-basis for initial size. */
+        /* Distance Converter is ~25% and others ~37.5% each */
+    }
+
+    .distance-converter-panel {
+        flex-basis: 30%; /* Make distance converter narrower */
+        max-width: 30%;
+        border-radius: 0; /* REMOVE BORDER-RADIUS FOR CONVERTER */
+    }
+
+    .calculator-panel,
+    .result-panel {
+        flex-basis: 35%; /* Make fare calculator and results wider and equal */
+        max-width: 35%;
+    }
+}
+
+/* Ensure content and footer fill height */
+.panel-content {
+    padding: 1.5rem; /* p-6 */
+    flex-grow: 1; /* Allow content area to take up remaining vertical space */
+}
+
+.footer-gray {
+    height: 30px;
+    background-color: #f9fafb; /* bg-gray-50 */
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem; /* px-6 */
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+    text-align: center; /* text-center */
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+
+/* Existing .calculator-panel and .result-panel specific styles that are not layout related */
+.calculator-panel .header-blue,
+.result-panel .header-blue {
+    background-color: orange; /* Changed from orange to a shade of blue */
+    padding: 1.5rem; /* p-6 */
+    color: #ffffff; /* text-white */
+}
+/* Removed width: 50% for lg breakpoint as it's now handled by .panel-item flex-basis */
+
+
+.header-content {
+    height: 70px;
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: space-between; /* justify-between */
+}
+
+.icon-bg-blue {
+    padding: 1.75rem; /* p-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+}
+
+
+.input-section {
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    gap: 1rem; /* space-y-4 (converted to gap for modern CSS) */
+}
+
+.input-label {
+    display: block; /* block */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    color: #374151; /* text-gray-700 */
+    margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.calculate-button {
+    width: 100%; /* w-full */
+    background-color: orange; /* Changed from orange to a shade of blue */
+    color: #ffffff; /* text-white */
+    font-weight: 700; /* font-bold */
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    transition-property: background-color; /* transition duration-200 */
+    transition-duration: 200ms;
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+}
+
+.calculate-button:hover {
+    background-color: darkorange; /* Changed from darkorange to a darker shade of blue for hover effect */
+}
+
+.calculate-button i {
+    margin-right: 0.5rem; /* mr-2 */
+}
+
+
+/* Result Card Specifics */
+.result-card-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.space-y-2 > *:not([hidden]) ~ *:not([hidden]) {
+    margin-top: 0.5rem; /* space-y-2 */
+    margin-bottom: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.text-gray-600 {
+    color: #4b5563;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-red-600 {
+    color: #dc2626;
+}
+
+.text-green-600 {
+    color: #16a34a;
+}
+
+.divider {
+    border-top: 1px solid #e5e7eb; /* border-t border-gray-200 */
+    margin-top: 0.5rem; /* my-2 */
+    margin-bottom: 0.5rem; /* my-2 */
+}
+
+.total-fare-display {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700; /* font-bold */
+    color: orange; /* text-blue-600 */
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+}
+
+#kilometers {
+    width: 270px;
+}
+
+#meters {
+    width: 270px;
+}
+
+.bg-white {
+    border-radius: 100px;
+}
+
+.panel-item {
+    border-radius: 20px;
+    margin-bottom: 45px;
+}
+
+
+/* Generic Tailwind-like classes used in HTML that were copied to CSS */
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.p-4 { padding: 1rem; }
+.w-full { width: 100%; }
+.max-w-md { max-width: 28rem; } /* Kept as a utility, though not directly used on panel containers now */
+.bg-white { background-color: #ffffff;}
+.rounded-2xl { border-radius: 1rem; }
+.p-8 { padding: 2rem; }
+.card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+.text-center { text-align: center; }
+.mb-8 { margin-bottom: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.font-bold { font-weight: 700; }
+.text-gray-800 { color: #1f2937; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.h-1 { height: 0.25rem; }
+.w-16 { width: 4rem; }
+.bg-blue-500 { background-color: orange; }
+.rounded-full { border-radius: 9999px; }
+.space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+.block { display: block; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mr-2 { margin-right: 0.5rem; }
+.text-blue-500 { color: orange; }
+.relative { position: relative; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.border { border-width: 1px; }
+.border-gray-300 { border-color: #d1d5db; }
+.input-focus:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px orange; }
+.transition { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 200ms; }
+.absolute { position: absolute; }
+.right-3 { right: 0.75rem; }
+.top-3 { top: 0.75rem; }
+.text-gray-500 { color: orange; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.border-t { border-top-width: 1px; }
+.bg-gray-50 { background-color: #f9fafb; }
+.readonly { cursor: default; }
+.justify-between { justify-content: space-between; }
+.font-semibold { font-weight: 600; }
+.text-blue-600 { color: orange; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.pt-4 { padding-top: 1rem; }
+.bg-blue-600 { background-color: orange; }
+.hover\:bg-blue-700:hover { background-color: darkorange; }
+.text-white { color: white; }
+.text-orange { color: orange; }
+.mt-6 { margin-top: 1.5rem; }
